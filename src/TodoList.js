@@ -8,7 +8,7 @@ const TodoList = (props) => {
     const todos = props.todos;
     const listItems = todos.map(todo => (
         <React.Fragment key = {todo.id}>
-            <Todo {...todo} removeTodo = {props.removeTodo} toggleTodo = {props.toggleTodo}/>
+            <Todo {...todo} removeTodo = {props.removeTodo} toggleTodo = {props.toggleTodo} editTodo = {props.editTodo}/>
             <Divider />
         </React.Fragment>
     ));
