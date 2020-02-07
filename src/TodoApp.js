@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,44 +6,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
-import uuid from 'uuid/v4';
+import useTodoState from './hooks/useTodoState';
 
 const TodoApp = (props) => {
     const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
-
-    const [todos, setTodos] = useState(initialTodos);
+    const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
 
     useEffect(() => {
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }, [todos]);    // the second argument tells, useEffect should be called only when todos are changed. The arguments should be specified in an array.
-
-    const addTodo = (newTodoText) => {
-        const newTodo = {
-            id : uuid(),
-            task : newTodoText,
-            completed : false
-        };
-        setTodos([...todos, newTodo]);
-    }
-
-    const removeTodo = (todoId) => {
-        const updatedTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(updatedTodos);
-    }
-
-    const toggleTodo = (todoId) => {
-        const updatedTodos = todos.map(todo => (
-            todo.id === todoId ? {...todo, completed : !todo.completed} : todo
-        ));
-        setTodos(updatedTodos);
-    }
-
-    const editTodo = (todoId, newTask) => {
-        const updatedTodos = todos.map(todo => (
-            todo.id === todoId ? {...todo, task : newTask} : todo
-        ));
-        setTodos(updatedTodos);
-    }
 
     return(
         // Paper Tag is used for the body. 
