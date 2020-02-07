@@ -7,8 +7,8 @@ import Todo from './Todo';
 const TodoList = (props) => {
     const todos = props.todos;
     const listItems = todos.map(todo => (
-        <React.Fragment>
-            <Todo {...todo} key = {todo.id}/>
+        <React.Fragment key = {todo.id}>
+            <Todo {...todo} removeTodo = {props.removeTodo} toggleTodo = {props.toggleTodo}/>
             <Divider />
         </React.Fragment>
     ));
