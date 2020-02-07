@@ -13,8 +13,8 @@ const EditTodoForm = (props) => {
     }
 
     return(
-        <form onSubmit = {handleSubmit}>
-            <TextField value = {value} onChange = {handleChange} margin = "normal" fullWidth/>
+        <form onSubmit = {handleSubmit} style = {{ marginLeft : "1rem", width : "100%" }}>
+            <TextField value = {value} onChange = {handleChange} margin = "normal" fullWidth autoFocus/>
         </form>
     );
 }

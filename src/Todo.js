@@ -22,7 +22,7 @@ const Todo = (props) => {
 
 
     return(
-        <ListItem>
+        <ListItem style = {{ height : "64px"}}>
             {isEditing ? (<EditTodoForm {...props} toggleEditForm = {toggle}/>) : (
                 <React.Fragment>
                     <Checkbox checked = {props.completed} tabIndex = {-1} onClick = {handleCheck} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,13 +9,13 @@ import TodoForm from './TodoForm';
 import uuid from 'uuid/v4';
 
 const TodoApp = (props) => {
-    const initialTodos = [
-        {id : uuid(), task : "Do some Coding", completed : false},
-        {id : uuid(), task : "Watch WWE", completed : true},
-        {id : uuid(), task : "Study for exams", completed : false}
-    ];
+    const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
 
     const [todos, setTodos] = useState(initialTodos);
+
+    useEffect(() => {
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);    // the second argument tells, useEffect should be called only when todos are changed. The arguments should be specified in an array.
 
     const addTodo = (newTodoText) => {
         const newTodo = {

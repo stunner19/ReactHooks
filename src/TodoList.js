@@ -6,20 +6,23 @@ import Todo from './Todo';
 
 const TodoList = (props) => {
     const todos = props.todos;
-    const listItems = todos.map(todo => (
+    const listItems = todos.map((todo,index) => (
         <React.Fragment key = {todo.id}>
             <Todo {...todo} removeTodo = {props.removeTodo} toggleTodo = {props.toggleTodo} editTodo = {props.editTodo}/>
-            <Divider />
+            {todos.length - 1 !== index && <Divider />} 
         </React.Fragment>
     ));
 
-    return(
-        <Paper>
-            <List>
-                {listItems}
-            </List>
-        </Paper>
-    );
+    if(todos.length){
+        return(
+            <Paper>
+                <List>
+                    {listItems}
+                </List>
+            </Paper>
+        );
+    }
+    else return null;
 }
 
 export default TodoList;
