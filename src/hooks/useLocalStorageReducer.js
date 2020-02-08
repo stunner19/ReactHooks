@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 
-function useLocalStorageState(key, defaultVal) {
-    const [state, setState] = useState(() => {
+function useLocalStorageReducer(key, defaultVal, reducer) {
+    const [state, dispatch] = useReducer(reducer, defaultVal, () => {
         let value;
         try {
             value = JSON.parse(window.localStorage.getItem(key) || String(defaultVal)
@@ -16,7 +16,7 @@ function useLocalStorageState(key, defaultVal) {
         window.localStorage.setItem(key, JSON.stringify(state));
     }, [state]);
 
-    return [state, setState];
+    return [state, dispatch];
 }
 
-export { useLocalStorageState };
+export { useLocalStorageReducer };
