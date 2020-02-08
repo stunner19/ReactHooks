@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItem';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -9,6 +9,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import useToggleState from './hooks/useToggleState';
 import EditTodoForm from './EditTodoForm';
 import { DispatchContext} from './context/todos.context';
+
+// Memo is a substitute for PureComponent. PureComponent only works in Class-based Components. Memo works in Functional Components.
+// Memo is a Higher-Order Component.
 
 const Todo = (props) => {
     const dispatch = useContext(DispatchContext);
@@ -44,4 +47,4 @@ const Todo = (props) => {
     );
 };
 
-export default Todo;
+export default memo(Todo);
