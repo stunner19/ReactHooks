@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItem';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -8,14 +8,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import useToggleState from './hooks/useToggleState';
 import EditTodoForm from './EditTodoForm';
+import { TodosContext} from './context/todos.context';
 
 const Todo = (props) => {
+    const { removeTodo, toggleTodo } = useContext(TodosContext);
+    const { completed, task, id} = props;
+
     const handleRemove = () => {
-        props.removeTodo(props.id);
+        removeTodo(id);
     }
     
     const handleCheck = () => {
-        props.toggleTodo(props.id);
+        toggleTodo(id);
     }
 
     const [isEditing, toggle] = useToggleState(false);
@@ -25,8 +29,8 @@ const Todo = (props) => {
         <ListItem style = {{ height : "64px"}}>
             {isEditing ? (<EditTodoForm {...props} toggleEditForm = {toggle}/>) : (
                 <React.Fragment>
-                    <Checkbox checked = {props.completed} tabIndex = {-1} onClick = {handleCheck} />
-                    <ListItemText style = {{ textDecoration : props.completed && "line-through" }}>{props.task}</ListItemText>
+                    <Checkbox checked = {completed} tabIndex = {-1} onClick = {handleCheck} />
+                    <ListItemText style = {{ textDecoration : completed && "line-through" }}>{task}</ListItemText>
                     <ListItemSecondaryAction>
                         <IconButton aria-label = "Delete" onClick = {handleRemove}>
                             <DeleteIcon />

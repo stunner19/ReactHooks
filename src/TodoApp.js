@@ -7,15 +7,9 @@ import Grid from '@material-ui/core/Grid';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 import useTodoState from './hooks/useTodoState';
+import { TodosProvider } from './context/todos.context';
 
 const TodoApp = (props) => {
-    const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
-    const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
-
-    useEffect(() => {
-        window.localStorage.setItem("todos", JSON.stringify(todos));
-    }, [todos]);    // the second argument tells, useEffect should be called only when todos are changed. The arguments should be specified in an array.
-
     return(
         // Paper Tag is used for the body. 
         <Paper 
@@ -34,8 +28,10 @@ const TodoApp = (props) => {
             </AppBar>
             <Grid container justify = "center" style = {{ marginTop : "1rem" }}>
                 <Grid item xs = {11} md = {8} lg = {4}>
-                    <TodoForm addTodo = {addTodo}/>
-                    <TodoList todos = {todos} removeTodo = {removeTodo} toggleTodo = {toggleTodo} editTodo = {editTodo}/>        
+                    <TodosProvider>
+                        <TodoForm/>
+                        <TodoList />        
+                    </TodosProvider>
                 </Grid>
             </Grid>
         </Paper>
