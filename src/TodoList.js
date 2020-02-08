@@ -6,7 +6,7 @@ import Todo from './Todo';
 import { TodosContext} from './context/todos.context';
 
 const TodoList = () => {
-    const { todos } = useContext(TodosContext);
+    const todos = useContext(TodosContext);
 
     const listItems = todos.map((todo,index) => (
         <React.Fragment key = {index}>

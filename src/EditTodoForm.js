@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { TextField } from '@material-ui/core';
 import useInputState from './hooks/useInputState';
-import { TodosContext} from './context/todos.context';
+import { DispatchContext} from './context/todos.context';
 
 const EditTodoForm = (props) => {
     const [value, handleChange, reset] = useInputState(props.task);
     const { id, toggleEditForm } = props;
-    const { editTodo } = useContext(TodosContext);
+    const dispatch = useContext(DispatchContext);     // We are directly getting dispatch and not the object, so destructuring is not needed.
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        editTodo(id, value);
+        dispatch({ type : "EDIT", id : id, task : value});
         reset();
         toggleEditForm();
     }

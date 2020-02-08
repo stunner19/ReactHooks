@@ -8,22 +8,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import useToggleState from './hooks/useToggleState';
 import EditTodoForm from './EditTodoForm';
-import { TodosContext} from './context/todos.context';
+import { DispatchContext} from './context/todos.context';
 
 const Todo = (props) => {
-    const { removeTodo, toggleTodo } = useContext(TodosContext);
+    const dispatch = useContext(DispatchContext);
     const { completed, task, id} = props;
 
     const handleRemove = () => {
-        removeTodo(id);
+        dispatch({ type : "REMOVE", id : id});
     }
     
     const handleCheck = () => {
-        toggleTodo(id);
+        dispatch({ type : "TOGGLE", id : id});
     }
 
     const [isEditing, toggle] = useToggleState(false);
-
 
     return(
         <ListItem style = {{ height : "64px"}}>

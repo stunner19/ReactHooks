@@ -1,4 +1,5 @@
-import React, { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
+import todoReducer from '../reducers/todo.reducer';
 import useTodoState from '../hooks/useTodoState';
 
 const defaultTodos = [
@@ -8,12 +9,17 @@ const defaultTodos = [
 ];
 
 export const TodosContext = createContext();
+export const DispatchContext = createContext();
 
 export const TodosProvider = (props) => {
-    const todosStuff = useTodoState(defaultTodos);
+    const [todos, dispatch] = useReducer(todoReducer,defaultTodos);
     return(
-        <TodosContext.Provider value = {todosStuff}>
-            {props.children}
+        // If more than one item is present, then we export an object using {{ }} braces;
+        // Otherwise, for a single item like todos and dispatch, we can use single {} braces.
+        <TodosContext.Provider value = {todos}>
+            <DispatchContext.Provider value = {dispatch}>
+                {props.children}
+            </DispatchContext.Provider>
         </TodosContext.Provider>
     );
 }
